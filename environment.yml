@@ -1,1 +1,18 @@
-
+name: dsci522
+channels:
+  - conda-forge
+dependencies:
+  - altair[version='>=5.0.0']
+  - ipykernel
+  - jupyterlab
+  - pandas
+  - matplotlib
+  - pip
+  - python=3.11
+  - scikit-learn
+  - conda-lock
+  - mamba
+  - pip:
+    - vegafusion==1.6.9
+    - vegafusion-python-embed==1.6.9
+    - vl-convert-python

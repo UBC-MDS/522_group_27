@@ -1,16 +1,6 @@
 # NHL player Shooting Hand Predictor
 Authors: Dominic Lam, Michael Gelfand, Yunke Zhang, Jay Mangat
 
-In the main README.md file for this project you should include:
- - the project title 
- - the list of contributors/authors 
- Authors: Dominic lam, Michael gelfand, Yunke zhang, Jay mangat
- - a short summary of the project (view from 10,000 feet) 
- - how to run your data analysis 
- - a list of the dependencies needed to run your analysis 
- - the names of the licenses contained in LICENSE.md
-
-
 Demo of a data analysis project for DSCI 522 (Data Science workflows); a
 course in the Master of Data Science program at the University of
 British Columbia.
@@ -40,7 +30,7 @@ in the league.
 ## Report
 
 The final report can be found
-[here](missing)
+[here](https://github.com/UBC-MDS/522_group_27/blob/main/shooting_hand_predictor.pdf)
 
 ## Usage
 
@@ -71,21 +61,9 @@ Select "Restart Kernel and Run All Cells..." under
 
 ## License
 
-The Breast Cancer Predictor report contained herein are licensed under the
-[Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License](https://creativecommons.org/licenses/by-nc-sa/4.0/).
-See [the license file](LICENSE.md) for more information. . If
-re-using/re-mixing please provide attribution and link to this webpage.
-The software code contained within this repository is licensed under the
-MIT license. See [the license file](LICENSE.md) for more information.
-
-## References
-
-Dua, Dheeru, and Casey Graff. 2017. “UCI Machine Learning Repository.”
-University of California, Irvine, School of Information; Computer
-Sciences. <http://archive.ics.uci.edu/ml>.
-
-Street, W. Nick, W. H. Wolberg, and O. L. Mangasarian. 1993. “Nuclear
-feature extraction for breast tumor diagnosis.” In *Biomedical Image
-Processing and Biomedical Visualization*, edited by Raj S. Acharya and
-Dmitry B. Goldgof, 1905:861–70. International Society for Optics;
-Photonics; SPIE. <https://doi.org/10.1117/12.148698>.
+The NHL player Shooting Hand Predictor roject report is licensed under the
+[Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License](https://creativecommons.org/licenses/by-nc-sa/4.0/) and the software
+is licensed under the [MIT license](https://opensource.org/license/MIT).
+See [the license file](LICENSE.md) for more information on either of these
+licenses. If re-using/re-mixing please provide attribution and link 
+to this webpage.

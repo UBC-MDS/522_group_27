@@ -10,7 +10,7 @@ British Columbia.
 This project aims to create a logistic regression model to aid in our 
 analysis of whether a Canadian National Hockey League (NHL) player's height
 and weight have any bearing on whether their shooting hand is left or
-right. We used player data from the 1999 season NHL up to the 2023 season NHL 
+right. We used player data from the 1917 season NHL up to the 2023 season NHL 
 season. One's shooting preference is the hand that is lower on the hockey 
 stick so if your left hand is on the top of the stick and your right hand
 is towards the bottom this is a right handed shot. Based on some exploratory 

@@ -1,6 +1,7 @@
 FROM quay.io/jupyter/minimal-notebook:afe30f0c9ad8
 
 COPY conda-linux-64.lock /tmp/conda-linux-64.lock
+RUN chmod 777 /home/jovyan/work
 COPY . /home/jovyan/work
 
 RUN mamba update --quiet --file /tmp/conda-linux-64.lock \

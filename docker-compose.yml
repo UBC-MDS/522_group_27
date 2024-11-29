@@ -1,0 +1,5 @@
+services:
+  analysis-env:
+    image: pogo22421/522_group_27
+    ports:
+      - "8888:8888"

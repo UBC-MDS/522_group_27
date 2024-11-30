@@ -34,22 +34,34 @@ The final report can be found
 
 ## Usage
 
-Install this environment as "YOURENV" with:
-```bash
-conda-lock install -n YOURENV conda-lock.yml
+### Setup
+
+> Ensure Docker desktop application is running first
+
+1. Clone this GitHub repository.
+
+### Running the analysis
+
+1. Navigate to the root of this project on your computer using the
+   command line and enter the following command:
+
+``` 
+docker compose up
 ```
 
-Run the analysis root of this repository:
-``` bash
-jupyter lab 
-```
+2. In the terminal, look for a URL that starts with 
+`http://127.0.0.1:8888/lab?token=`
+and copy that URL in to your web browser and go to the page.
 
-Open `nhl_shooting_report.ipynb` and choose
-the following python kernal:
-"Python [conda env:YOURENV]".
+4. To run the analysis,
+open `shooting_hand_predictor.ipynb` in the Jupyter Lab you just launched
+and under the "Kernel" menu click "Restart Kernel and Run All Cells...".
 
-Select "Restart Kernel and Run All Cells..." under 
-"Kernel" to ensure all cells are working correctly.
+### Clean up
+
+1. To shut down the container and clean up the resources, 
+type `Ctrl` + `C` in the terminal
+where you launched the container, and then type `docker compose rm`
 
 ## Dependencies
 
@@ -58,6 +70,19 @@ Select "Restart Kernel and Run All Cells..." under
 - `jupyterlab` (version 4.0.0 or higher)
 - `nb_conda_kernels` (version 2.3.1 or higher)
 - Python and packages listed in [`environment.yml`](environment.yml)
+
+### Adding a new dependency
+
+1. Add the dependency to the `environment.yml` file on a new branch.
+
+2. Run `conda-lock -k explicit --file environment.yml -p linux-64` to update the `conda-linux-64.lock` file.
+
+2. Re-build the Docker image locally to ensure it builds and runs properly.
+
+3. Push the changes to GitHub. A new Docker
+   image will be built and pushed to Docker Hub automatically.
+
+5. Send a pull request to merge the changes into the `main` branch. 
 
 ## License
 

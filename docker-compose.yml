@@ -1,5 +1,8 @@
 services:
   analysis-env:
-    image: pogo22421/522_group_27
+    image: pogo22421/522_group_27:latest
     ports:
       - "8888:8888"
+    volumes:
+      - .:/home/jovyan
+    platform: linux/amd64

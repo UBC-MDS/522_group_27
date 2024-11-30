@@ -8,3 +8,6 @@ RUN mamba update --quiet --file /tmp/conda-linux-64.lock \
     && fix-permissions "/home/${NB_USER}"
 
 RUN pip install deepchecks==0.18.1
+RUN pip install vegafusion==1.6.9
+RUN pip install vegafusion-python-embed==1.6.9
+RUN pip install vl-convert-python==1.7.0

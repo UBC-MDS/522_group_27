@@ -1,50 +1,72 @@
 # eda.py
-# author: Tiffany Timbers
-# date: 2023-11-27
+# author: Jay Mangat
+# date: december 5, 2024
 
+# documentation comments
+
+
+# import libraries/packages
 import click
 import os
 import altair as alt
 import numpy as np
 import pandas as pd
 
+# parse/define command line arguments here
 @click.command()
 @click.option('--processed-training-data', type=str, help="Path to processed training data")
 @click.option('--plot-to', type=str, help="Path to directory where the plot will be written to")
 
+# code for other functions
 def main(processed_training_data, plot_to):
     '''Plots the densities of each feature in the processed training data
         by class and displays them as a grid of plots. Also saves the plot.'''
 
-    scaled_cancer_train = pd.read_csv(processed_training_data)
+info = processed_training_data.info()
+info.to_csv(os.path.join(plot_to, '/tables/df_info.csv'))
 
-    # melt for plotting via facets 
-    cancer_train_melted = scaled_cancer_train.melt(
-        id_vars=['class'],
-        var_name='predictor',
-        value_name='value'
-    )
+describe = processed_training_data.describe()
+describe.to_csv(os.path.join(plot_to, '/tables/df_describe.csv'))
 
-    # make columns names nicer for plotting
-    cancer_train_melted['predictor'] = cancer_train_melted['predictor'].str.replace('_',' ')
+head = processed_training_data.head()
+head.to_csv(os.path.join(plot_to, '/tables/df_head.csv'))
 
-    # exploratory data analysis - visualize predictor distributions across classes
-    plot = alt.Chart(cancer_train_melted, width=150, height=100).transform_density(
-        'value',
-        groupby=['class', 'predictor']
-    ).mark_area(opacity=0.7).encode(
-        x="value:Q",
-        y=alt.Y('density:Q').stack(False),
-        color='class:N'
+weight_chart = alt.Chart(processed_training_data).mark_bar().encode(
+    alt.X("weight_in_kilograms:Q", title="Weight (kg)").bin(),
+    alt.Y("count()", title="Number of Players"),
+    alt.Color("shoots_left", title="Shoots Left")
+    ).properties(
+        title="Distribution of Player Weight by Shooting Hand",
+        height=300,
+        width=200
     ).facet(
-        'predictor:N',
-        columns=3
-    ).resolve_scale(
-        y='independent'
+        "shoots_left",
+        )
+    
+# Height distribution bar chart
+height_chart = alt.Chart(processed_training_data).mark_bar().encode(
+    alt.X("height_in_centimeters:Q", title="Height (cm)").bin(),
+    alt.Y("count()", title="Number of Players"),
+    alt.Color("shoots_left", title="Shoots Left")
+    ).properties(
+        title="Distribution of Player Height by Shooting Hand",
+        height=300,
+        width=200
+    ).facet(
+        "shoots_left",
     )
+    
+combined_chart = alt.vconcat(weight_chart, height_chart).properties(
+    title="Distribution of Player Height by Shooting Hand"
+)
+combined_chart.save(os.path.join(plot_to, "/figures/combined_chart.png"))
 
-    plot.save(os.path.join(plot_to, "feature_densities_by_class.png"),
-              scale_factor=2.0)
 
 if __name__ == '__main__':
     main()
+
+
+
+
+
+

@@ -100,7 +100,6 @@ def main(training_data, test_data, preprocessor, pipeline_to, plot_to, results_t
     cm.ax_.set_yticklabels(["Shoots Right", "Shoots Left"])
     
     # Add a title and axis labels
-    cm.ax_.set_title("Confusion Matrix for Shooting Hand Prediction")
     cm.ax_.set_xlabel("Predicted Class")
     cm.ax_.set_ylabel("Actual Class")
     

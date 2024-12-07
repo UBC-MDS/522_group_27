@@ -30,7 +30,7 @@ in the league.
 ## Report
 
 The final report can be found
-[here](https://github.com/UBC-MDS/522_group_27/blob/main/shooting_hand_predictor.pdf)
+[here](https://github.com/UBC-MDS/522_group_27/blob/main/report/shooting_hand_predictor.pdf)
 
 ## Usage
 
@@ -53,9 +53,34 @@ docker compose up
 `http://127.0.0.1:8888/lab?token=`
 and copy that URL in to your web browser and go to the page.
 
-4. To run the analysis,
-open `shooting_hand_predictor.ipynb` in the Jupyter Lab you just launched
-and under the "Kernel" menu click "Restart Kernel and Run All Cells...".
+3. To run the analysis,
+open a terminal and run the following commands:
+```
+python scripts/download_data.py \
+   --url="https://raw.githubusercontent.com/rfordatascience/tidytuesday/refs/heads/main/data/2024/2024-01-09/nhl_rosters.csv" \
+   --write_to=data/raw
+
+python scripts/preprocess.py \
+   --raw-data=data/raw/nhl_rosters.csv \
+   --data-to=data/processed \
+   --preprocessor-to=results/models
+
+python scripts/eda.py \
+   --processed-training-data=data/processed/roster_train.csv \
+   --tables-to=results/tables \
+   --plot-to=results/figures
+
+python scripts/shooting_hand_classifier.py \
+   --training-data=data/processed/roster_train.csv \
+   --test-data=data/processed/roster_test.csv \
+   --preprocessor=results/models/roster_preprocessor.pickle \
+   --pipeline-to=results/models \
+   --plot-to=results/figures \
+   --results-to=results/tables
+
+quarto render report/shooting_hand_predictor.qmd --to html
+quarto render report/shooting_hand_predictor.qmd --to pdf
+```
 
 ### Clean up
 

@@ -1,0 +1,88 @@
+---
+title: NHL Player Shooting Hand Predictor
+author: "Michael Gelfand, Jay Mangat, Dominic Lam"
+date: "2024/12/06"
+jupyter: python3
+format: 
+    html:
+        toc: true
+        toc-depth: 2
+    pdf:
+        toc: true
+        toc-depth: 2
+bibliography: references.bib
+execute:
+  echo: false
+  warning: false
+editor: source
+---
+
+```{python}
+import pandas as pd
+from IPython.display import Markdown, display
+from tabulate import tabulate
+```
+
+```{python}
+test_scores_df = pd.read_csv("../results/tables/test_scores.csv").round(2)
+accuracy_score = test_scores_df['accuracy'].values[0]
+info_df = pd.read_csv("../results/tables/df_info.csv", index_col='name')
+info_df.rename(columns={'non-nulls':'Non-null count', 'nulls':'Null count'}, inplace=True)
+info_df.drop(['type','Unnamed: 0'], axis=1, inplace=True)
+info_df.index.names = ['Column']
+info_df_count = info_df['Non-null count'].values[0]
+```
+
+# Summary
+Is there a correlation between a National Hockey League (NHL) player's height/weight and their shooting hand? We endeavoured to solve this using a logisitic regression model and a database of NHL players from the 1917 season till the 2023 season. After creating our model, we found there to be a weak correlation between these items as our model scored at `{python} accuracy_score` which is barely better than guessing. 
+
+# Introduction
+The relationship between a player's various physical attributes can provide valuable insights to their performance within that sport. This report explores whether the shooting hand (left or right) of NHL players can be predicted based on their height and weight. To answer this question we used a logistic regression model. The model estimates the probability that a given height and weight corresponds to whether a player is left handed or right handed.
+
+If the report provides a solid analysis, this information could help teams get more right handed shooters as they have a slight advantages over left handed shooters. In this report, we show the acquisition of the data, its preprocessing, creating and training a sklearn logisitic regression model, and our results. By analyzing patterns in the data, we aim to assess the strength of the relationship between a player's height and weight and their preferred shooting hand.
+
+# Methods
+
+## Data
+
+The data set for this shot predictor project is of National Hockey League (NHL) roster information created by the Data Science Learning Community [@tidytuesday] for the Tidy Tuesday project repository. The data here was created using the NHL's API and loaded on to the Tidy Tuesday repository [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2024/2024-01-09/nhl_rosters.csv). Each row in the data set contains information about all hockey players on every team from the 1917-1918 season to the 2023-2024 season. The rows include information such as name, birth date, and body dimensions. 
+
+## Analysis
+
+A logistic regression classifier was used to create a model which will predict whether a hockey player shoots left or right based on their height and weight. As the team is only interested in those two specific columns for predicting shooting side, all other columns were dropped. The test set was created using 30% of the records from the initial data set, leaving 70% of records for model training. For this analysis, the class weight parameter was set to balanced to ensure that the classes are equal and to avoid class imbalance. Data cleanup was done to remove duplicate records and null values and preprocessing was done on the height and weight input features to standardize them. To perform the analysis, the Python programming language [@Python] was used along with the following packages: Pandas [@mckinney-proc-scipy-2010], Altair [@vanderplas2018altair], and scikit-learn [@scikit-learn]. 
+
+# Results and Discussion
+
+## Looking at the data
+To start, we performed an exploratory data analysis on the training data to see if there was anything that stood out in the data, such as large class imbalances or unnexpected distributions. From @tbl-train_info, we can see that there is no missing data in our training set and we have a relatively large set of data to work from, specifically `{python} info_df_count` records. A large training set is important to ensure that our model does not overfit on the data. It is also important that missing data is minimalized otherwise the model could be using undesired information to make its prediction.
+
+```{python}
+#| label: tbl-train_info
+#| tbl-cap: Missing record counts for training data
+
+Markdown(info_df.to_markdown())
+```
+
+@fig-feature_distributions_by_class below shows the class distributions for our two features, indicating that there are more players who shoot left than players who shoot right. This is in line with the common knowledge that there are more right handed dominant people than left handed dominant. In hockey, players tend to put there dominant hand closer to the blade, so right hand dominant players will shoot left. Given this large class imbalance, it is important to adjust the model to account for this otherwise it would greatly favour making a prediction towards the class with more data.
+
+![Comparison of count distributions of input features for players that shoot left or right.](../results/figures/combined_chart.png){#fig-feature_distributions_by_class width=98%}
+
+## What we found?  
+The logistic regression model yielded a weak correlation between an NHL player’s height and weight and their shooting hand. The model’s accuracy score on the test set was `{python} accuracy_score`, barely above random guessing. We can also see from our confusion matrix in @fig-conf_matrix that our model is making incorrect predictions at about the same rate that it is making correct predictions as indicated by the difference between columns in the matrix. 
+
+![Confusion matrix for model performance on test set.](../results/figures/confusion_matrix.png){#fig-conf_matrix width=60%}
+
+## Is this what we expected to find?  
+Given the complexity of human physical attributes and their possible influences on preferences, it was somewhat expected that height and weight alone would not be strong predictors of shooting hand. Shooting hand preference could be influenced by various factors, such as handedness, training, or cultural norms, which are not captured by the dataset.
+
+## What impact could such findings have?  
+These findings suggest that physical attributes like height and weight are not sufficient for predicting shooting hand. This highlights the importance of exploring additional features such as handedness, training history, or team strategy. For NHL teams, relying solely on height and weight for such predictions would not be effective for player scouting or strategy optimization.
+
+## What future questions could this lead to?  
+- What additional features (e.g., handedness, practice hours, family handedness trends) could improve the prediction of shooting hand?  
+- How do environmental or cultural factors influence shooting hand preference?  
+- Are there relationships between shooting hand and performance metrics, such as goals scored or defensive success?  
+- Can machine learning models combining multiple physical and behavioral attributes provide better predictions?  
+
+# References
+

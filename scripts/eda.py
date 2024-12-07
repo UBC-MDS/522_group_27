@@ -54,7 +54,6 @@ def main(processed_training_data, tables_to, plot_to):
         alt.Y("count()", title="Number of Players"),
         alt.Color("shoots_left", title="Shoots Left")
         ).properties(
-            title="Distribution of Player Weight by Shooting Hand",
             height=300,
             width=200
         ).facet(
@@ -67,16 +66,13 @@ def main(processed_training_data, tables_to, plot_to):
         alt.Y("count()", title="Number of Players"),
         alt.Color("shoots_left", title="Shoots Left")
         ).properties(
-            title="Distribution of Player Height by Shooting Hand",
             height=300,
             width=200
         ).facet(
             "shoots_left",
         )
 
-    combined_chart = alt.vconcat(weight_chart, height_chart).properties(
-        title="Distribution of Player Height by Shooting Hand"
-    )
+    combined_chart = alt.vconcat(weight_chart, height_chart)
     combined_chart.save(os.path.join(plot_to, "combined_chart.png"))
 
 

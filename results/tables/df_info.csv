@@ -1,0 +1,4 @@
+,name,non-nulls,nulls,type
+0,weight_in_kilograms,38200,0,float64
+1,height_in_centimeters,38200,0,float64
+2,shoots_left,38200,0,bool

@@ -72,6 +72,8 @@ The logistic regression model yielded a weak correlation between an NHL playerâ€
 
 ![Confusion matrix for model performance on test set.](../results/figures/confusion_matrix.png){#fig-conf_matrix width=60%}
 
+We currently lack hyperparameter optimization and could perform this for future models to improve our model. This could allow us to increase the predicting power of the model with little effort as we could use the data we already have and try out different hyperparameter combinations to find one that increases our model's scores. 
+
 ## Is this what we expected to find?  
 Given the complexity of human physical attributes and their possible influences on preferences, it was somewhat expected that height and weight alone would not be strong predictors of shooting hand. Shooting hand preference could be influenced by various factors, such as handedness, training, or cultural norms, which are not captured by the dataset.
 

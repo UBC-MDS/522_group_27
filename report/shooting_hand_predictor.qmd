@@ -37,15 +37,19 @@ info_df_count = info_df['Non-null count'].values[0]
 Is there a correlation between a National Hockey League (NHL) player's height/weight and their shooting hand? We endeavoured to solve this using a logisitic regression model and a database of NHL players from the 1917 season till the 2023 season. After creating our model, we found there to be a weak correlation between these items as our model scored at `{python} accuracy_score` which is barely better than guessing. 
 
 # Introduction
-The relationship between a player's various physical attributes can provide valuable insights to their performance within that sport. This report explores whether the shooting hand (left or right) of NHL players can be predicted based on their height and weight. To answer this question we used a logistic regression model. The model estimates the probability that a given height and weight corresponds to whether a player is left handed or right handed.
+In the NHL, a player’s shooting hand is likely the most important aspect of their game as it decides how they play the game. Understanding the relationship between physical attributes and player performance is important because it can provide valuable insights to team coaches for optimizing team strategies in professional sports. Our research question explores whether whether NHL players' shooting hand (left or right) can be predicted based on their height and weight using a logistic regression model. 
 
-If the report provides a solid analysis, this information could help teams get more right handed shooters as they have a slight advantages over left handed shooters. In this report, we show the acquisition of the data, its preprocessing, creating and training a sklearn logisitic regression model, and our results. By analyzing patterns in the data, we aim to assess the strength of the relationship between a player's height and weight and their preferred shooting hand.
+Right-handed shooters hold a slight advantage in certain scenarios, making the ability to predict shooting hand potentially useful for teams aiming to refine player selection or training strategies. If our research question is correct, this analysis would create a reproducible way of determining a player’s shooting hand based on their physical factors. This is important because it would allow managers and coaches to scout for talent who are right handed as this would give their team an additional edge during games. 
+
+This analysis includes data acquisition, preprocessing, model creation, and training, followed by an evaluation of results. By examining the patterns linking height, weight, and shooting hand preference, this report aims to provide actionable insights for NHL teams and lay groundwork for future research.
 
 # Methods
 
 ## Data
 
 The data set for this shot predictor project is of National Hockey League (NHL) roster information created by the Data Science Learning Community [@tidytuesday] for the Tidy Tuesday project repository. The data here was created using the NHL's API and loaded on to the Tidy Tuesday repository [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2024/2024-01-09/nhl_rosters.csv). Each row in the data set contains information about all hockey players on every team from the 1917-1918 season to the 2023-2024 season. The rows include information such as name, birth date, and body dimensions. 
+
+The primary columns used in our analysis, height and weight, are measured in centimeters for height and kilograms for weight. We use these columns within our model to predict a player's shooting hand.
 
 ## Analysis
 

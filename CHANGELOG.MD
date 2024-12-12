@@ -1,13 +1,13 @@
 # CHANGELOG.md
 
-## Feedback hovhannisyannell (Dec 12, 2024)
+## Feedback hovhannisyannell (Dec 12, 2024) 
+ADD LINK
 
 ### Documentation
 
 - Information about specific features (height, weight) used within model added. 
 - Hyperparameter tuning was not attempted (as explicitly stated in report) so no changes were made
 - Reasons for using logisitic regression added
-- Reason for using LR model added
 
 ### Automated tests
 

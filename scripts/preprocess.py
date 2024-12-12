@@ -19,6 +19,7 @@ import click
 import json
 import logging
 import os
+import sys
 import pandas as pd
 import pandera as pa
 import pickle
@@ -26,7 +27,8 @@ from sklearn.model_selection import train_test_split
 from sklearn import set_config
 from sklearn.preprocessing import StandardScaler
 from sklearn.compose import make_column_transformer
-
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from src.write_csv import write_csv
 
 @click.command()
 @click.option('--raw-data', type=str, help="Path to raw data")
@@ -128,8 +130,8 @@ def main(raw_data, data_to, preprocessor_to):
     # Create processed data folder if it doesn't exist
     os.makedirs(data_to, exist_ok=True)
 
-    train_df.to_csv(os.path.join(data_to, "roster_train.csv"), index=False)
-    test_df.to_csv(os.path.join(data_to, "roster_test.csv"), index=False)
+    write_csv(train_df, data_to, "roster_train.csv", keep_index=False)
+    write_csv(test_df, data_to, "roster_test.csv", keep_index=False)
 
     # Lists of feature names
     numeric_features = ["weight_in_kilograms", "height_in_centimeters"]

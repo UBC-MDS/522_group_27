@@ -30,8 +30,6 @@ def write_csv(
         The input is not a Pandas DataFrame
     FileNotFoundError
         The directory cannot be found
-    NotADirectoryError
-        The passed in directory is not a directory
     ValueError
         The output file name does not end with .csv
     ValueError
@@ -41,8 +39,6 @@ def write_csv(
         raise TypeError("The input must be of type Pandas DataFrame")
     if not os.path.exists(directory):
         raise FileNotFoundError("Directory does not exist")
-    if not os.path.dir(directory):
-        raise NotADirectoryError("File path is not a directory")
     if not filename.endswith(".csv"):
         raise ValueError("Filename must end with '.csv'")
     if df.empty:

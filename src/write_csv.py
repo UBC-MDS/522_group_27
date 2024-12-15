@@ -36,13 +36,13 @@ def write_csv(
         The input DataFrame is empty
     """
     if not isinstance(df, pd.DataFrame):
-        raise TypeError("The input must be of type Pandas DataFrame")
+        raise TypeError("The input must be of type Pandas DataFrame.")
     if not os.path.exists(directory):
-        raise FileNotFoundError("Directory does not exist")
+        raise FileNotFoundError("Directory does not exist.")
     if not filename.endswith(".csv"):
-        raise ValueError("Filename must end with '.csv'")
+        raise ValueError("Filename must end with '.csv'.")
     if df.empty:
-        raise ValueError("Dataframe must have records")
+        raise ValueError("Dataframe must have records.")
 
     full_path = os.path.join(directory, filename)
     df.to_csv(full_path, index=keep_index)

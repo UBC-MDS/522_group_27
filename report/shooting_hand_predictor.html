@@ -84,7 +84,7 @@ div.csl-indent {
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="../shooting_hand_predictor.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="..\shooting_hand_predictor.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
 <main class="content" id="quarto-document-content">
 
@@ -125,18 +125,20 @@ div.csl-indent {
 </section>
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>The relationship between a player’s various physical attributes can provide valuable insights to their performance within that sport. This report explores whether the shooting hand (left or right) of NHL players can be predicted based on their height and weight. To answer this question we used a logistic regression model. The model estimates the probability that a given height and weight corresponds to whether a player is left handed or right handed.</p>
-<p>If the report provides a solid analysis, this information could help teams get more right handed shooters as they have a slight advantages over left handed shooters. In this report, we show the acquisition of the data, its preprocessing, creating and training a sklearn logisitic regression model, and our results. By analyzing patterns in the data, we aim to assess the strength of the relationship between a player’s height and weight and their preferred shooting hand.</p>
+<p>In the NHL, a player’s shooting hand is likely the most important aspect of their game as it decides how they play the game. Understanding the relationship between physical attributes and player performance is important because it can provide valuable insights to team coaches for optimizing team strategies in professional sports. Our research question explores whether whether NHL players’ shooting hand (left or right) can be predicted based on their height and weight using a logistic regression model.</p>
+<p>Right-handed shooters hold a slight advantage in certain scenarios, making the ability to predict shooting hand potentially useful for teams aiming to refine player selection or training strategies. If our research question is correct, this analysis would create a reproducible way of determining a player’s shooting hand based on their physical factors. This is important because it would allow managers and coaches to scout for talent who are right handed as this would give their team an additional edge during games.</p>
+<p>This analysis includes data acquisition, preprocessing, model creation, and training, followed by an evaluation of results. By examining the patterns linking height, weight, and shooting hand preference, this report aims to provide actionable insights for NHL teams and lay groundwork for future research.</p>
 </section>
 <section id="methods" class="level1">
 <h1>Methods</h1>
 <section id="data" class="level2">
 <h2 class="anchored" data-anchor-id="data">Data</h2>
 <p>The data set for this shot predictor project is of National Hockey League (NHL) roster information created by the Data Science Learning Community <span class="citation" data-cites="tidytuesday">(<a href="#ref-tidytuesday" role="doc-biblioref">Community 2024</a>)</span> for the Tidy Tuesday project repository. The data here was created using the NHL’s API and loaded on to the Tidy Tuesday repository <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2024/2024-01-09/nhl_rosters.csv">here</a>. Each row in the data set contains information about all hockey players on every team from the 1917-1918 season to the 2023-2024 season. The rows include information such as name, birth date, and body dimensions.</p>
+<p>The primary columns used in our analysis, height and weight, are measured in centimeters for height and kilograms for weight. We use these columns within our model to predict a player’s shooting hand.</p>
 </section>
 <section id="analysis" class="level2">
 <h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
-<p>A logistic regression classifier was used to create a model which will predict whether a hockey player shoots left or right based on their height and weight. As the team is only interested in those two specific columns for predicting shooting side, all other columns were dropped. The test set was created using 30% of the records from the initial data set, leaving 70% of records for model training. For this analysis, the class weight parameter was set to balanced to ensure that the classes are equal and to avoid class imbalance. Data cleanup was done to remove duplicate records and null values and preprocessing was done on the height and weight input features to standardize them. To perform the analysis, the Python programming language <span class="citation" data-cites="Python">(<a href="#ref-Python" role="doc-biblioref">Van Rossum and Drake 2009</a>)</span> was used along with the following packages: Pandas <span class="citation" data-cites="mckinney-proc-scipy-2010">(<a href="#ref-mckinney-proc-scipy-2010" role="doc-biblioref">McKinney 2010</a>)</span>, Altair <span class="citation" data-cites="vanderplas2018altair">(<a href="#ref-vanderplas2018altair" role="doc-biblioref">VanderPlas et al. 2018</a>)</span>, and scikit-learn <span class="citation" data-cites="scikit-learn">(<a href="#ref-scikit-learn" role="doc-biblioref">Pedregosa et al. 2011</a>)</span>.</p>
+<p>A logistic regression classifier was used to create a model which will predict whether a hockey player shoots left or right based on their height and weight. A logistic regression model was used because we are predicting a cateogorical variable (shooting hand as left or right). As the team is only interested in those two specific columns for predicting shooting side, all other columns were dropped. The test set was created using 30% of the records from the initial data set, leaving 70% of records for model training. For this analysis, the class weight parameter was set to balanced to ensure that the classes are equal and to avoid class imbalance. Data cleanup was done to remove duplicate records and null values and preprocessing was done on the height and weight input features to standardize them. To perform the analysis, the Python programming language <span class="citation" data-cites="Python">(<a href="#ref-Python" role="doc-biblioref">Van Rossum and Drake 2009</a>)</span> was used along with the following packages: Pandas <span class="citation" data-cites="mckinney-proc-scipy-2010">(<a href="#ref-mckinney-proc-scipy-2010" role="doc-biblioref">McKinney 2010</a>)</span>, Altair <span class="citation" data-cites="vanderplas2018altair">(<a href="#ref-vanderplas2018altair" role="doc-biblioref">VanderPlas et al. 2018</a>)</span>, and scikit-learn <span class="citation" data-cites="scikit-learn">(<a href="#ref-scikit-learn" role="doc-biblioref">Pedregosa et al. 2011</a>)</span>.</p>
 </section>
 </section>
 <section id="results-and-discussion" class="level1">
@@ -151,7 +153,7 @@ div.csl-indent {
 Table&nbsp;1: Missing record counts for training data
 </figcaption>
 <div aria-describedby="tbl-train_info-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="3">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="16">
 <table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">

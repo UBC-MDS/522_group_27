@@ -1,6 +1,6 @@
-# preprocess.py
+# preprocess_and_validate.py
 # author: Michael Gelfand
-# date: 2024-12-05
+# date: 2024-12-15
 
 # This script reads in the raw NHL roster data stored in the data folder and
 # performs the cleaning and preprocessing necessary for the data to be read
@@ -8,7 +8,7 @@
 # data as well as the preprocessor to be used in the model training.
 
 '''
-Usage: python scripts/preprocess.py \
+Usage: python scripts/preprocess_and_validate.py \
     --raw-data=data/raw/nhl_rosters.csv \
     --data-to=data/processed \
     --preprocessor-to=results/models

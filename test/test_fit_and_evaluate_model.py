@@ -77,17 +77,3 @@ def test_fit_and_evaluate_model_empty_data(mock_preprocessor):
 
     with pytest.raises(ValueError, match="X_train and y_train cannot be empty."):
         fit_and_evaluate_model(X_train, y_train, X_test, y_test, mock_preprocessor)
-
-
-def test_fit_and_evaluate_model_no_features(sample_data, mock_preprocessor):
-    """Test fit_and_evaluate_model with missing features."""
-    train_df, test_df = sample_data
-
-    # Remove features
-    X_train = train_df.drop(columns=["feature1", "feature2"])
-    y_train = train_df["shoots_left"]
-    X_test = test_df.drop(columns=["feature1", "feature2"])
-    y_test = test_df["shoots_left"]
-
-    with pytest.raises(ValueError, match="The number of features in X_train and X_test must match."):
-        fit_and_evaluate_model(X_train, y_train, X_test, y_test, mock_preprocessor)

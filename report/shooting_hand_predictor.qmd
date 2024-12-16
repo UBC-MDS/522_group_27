@@ -80,7 +80,7 @@ Markdown(info_df.to_markdown())
 
 @fig-feature_distributions_by_class below shows the class distributions for our two features, indicating that there are more players who shoot left than players who shoot right. This is in line with the common knowledge that there are more right handed dominant people than left handed dominant. In hockey, players tend to put there dominant hand closer to the blade, so right hand dominant players will shoot left. Given this large class imbalance, it is important to adjust the model to account for this otherwise it would greatly favour making a prediction towards the class with more data.
 
-![Comparison of count distributions of input features for players that shoot left or right.](../results/figures/combined_chart.png){#fig-feature_distributions_by_class width=98%}
+![Comparison of count distributions of input features for players that shoot left or right.](../results/figures/player_height_weight_distribution.png){#fig-feature_distributions_by_class width=98%}
 
 ## What we found?  
 The logistic regression model yielded a weak correlation between an NHL player’s height and weight and their shooting hand. The model’s accuracy score on the test set was `{python} accuracy_score`, barely above random guessing. We can also see from our confusion matrix in @fig-conf_matrix that our model is making incorrect predictions at about the same rate that it is making correct predictions as indicated by the difference between columns in the matrix. 

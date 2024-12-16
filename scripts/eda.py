@@ -101,7 +101,7 @@ def main(processed_training_data, tables_to, plot_to):
         height_chart
     )
     
-    combined_chart.save(os.path.join(plot_to, "combined_chart.png"))
+    combined_chart.save(os.path.join(plot_to, "player_height_weight_distribution.png"))
     # =============================
     # Code for Chart Ends
 

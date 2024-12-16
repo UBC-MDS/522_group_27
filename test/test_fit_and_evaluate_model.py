@@ -1,10 +1,13 @@
 import pytest
 import pandas as pd
 import numpy as np
+import sys
+import os
 from sklearn.pipeline import make_pipeline
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
-from fit_and_evaluate_model import fit_and_evaluate_model
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from src.fit_and_evaluate_model import fit_and_evaluate_model
 
 
 @pytest.fixture

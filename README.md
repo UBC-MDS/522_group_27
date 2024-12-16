@@ -53,33 +53,14 @@ docker compose up
 `http://127.0.0.1:8888/lab?token=`
 and copy that URL in to your web browser and go to the page.
 
-3. To run the analysis,
-open a terminal and run the following commands:
+3. Open a new terminal inside of Jupyter and enter the following command to reset the project to its initial state:
 ```
-python scripts/download_data.py \
-   --url="https://raw.githubusercontent.com/rfordatascience/tidytuesday/refs/heads/main/data/2024/2024-01-09/nhl_rosters.csv" \
-   --write_to=data/raw
+make clean
+```
 
-python scripts/preprocess_and_validate.py \
-   --raw-data=data/raw/nhl_rosters.csv \
-   --data-to=data/processed \
-   --preprocessor-to=results/models
-
-python scripts/eda.py \
-   --processed-training-data=data/processed/roster_train.csv \
-   --tables-to=results/tables \
-   --plot-to=results/figures
-
-python scripts/shooting_hand_classifier.py \
-   --training-data=data/processed/roster_train.csv \
-   --test-data=data/processed/roster_test.csv \
-   --preprocessor=results/models/roster_preprocessor.pickle \
-   --pipeline-to=results/models \
-   --plot-to=results/figures \
-   --results-to=results/tables
-
-quarto render report/shooting_hand_predictor.qmd --to html
-quarto render report/shooting_hand_predictor.qmd --to pdf
+4. To run the analysis, enter the following command in the terminal:
+```
+make all
 ```
 
 ### Clean up
@@ -109,11 +90,11 @@ where you launched the container, and then type `docker compose rm`
 
 5. Send a pull request to merge the changes into the `main` branch. 
 
-### Testing
+## Testing
 
-## Running tests
+### Running tests
 
-To run the developer function tests, ensure you are in the project root directory and run the `pytest` command in terminal.
+To run the developer function tests, run the commands above to start the docker container and open the Jupyter Lab terminal. Then, ensure you are in the project root directory and run the `pytest` command in terminal.
 
 ## License
 

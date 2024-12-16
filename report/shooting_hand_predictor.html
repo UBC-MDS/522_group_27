@@ -72,6 +72,7 @@ div.csl-indent {
   <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
   <ul class="collapse">
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#assumptions-and-limitations" id="toc-assumptions-and-limitations" class="nav-link" data-scroll-target="#assumptions-and-limitations">Assumptions and Limitations</a></li>
   <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
   </ul></li>
   <li><a href="#results-and-discussion" id="toc-results-and-discussion" class="nav-link" data-scroll-target="#results-and-discussion">Results and Discussion</a>
@@ -84,7 +85,7 @@ div.csl-indent {
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="..\shooting_hand_predictor.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="../shooting_hand_predictor.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
 <main class="content" id="quarto-document-content">
 
@@ -121,12 +122,12 @@ div.csl-indent {
 
 <section id="summary" class="level1">
 <h1>Summary</h1>
-<p>Is there a correlation between a National Hockey League (NHL) player’s height/weight and their shooting hand? We endeavoured to solve this using a logisitic regression model and a database of NHL players from the 1917 season till the 2023 season. After creating our model, we found there to be a weak correlation between these items as our model scored at 0.52 which is barely better than guessing.</p>
+<p>Is there a correlation between a National Hockey League (NHL) player’s height/weight and their shooting hand? We endeavoured to solve this using a logistic regression model and a database of NHL players from the 1917 season till the 2023 season. After creating our model, we found there to be a weak correlation between these items as our model scored at 0.52 which is barely better than guessing.</p>
 </section>
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>In the NHL, a player’s shooting hand is likely the most important aspect of their game as it decides how they play the game. Understanding the relationship between physical attributes and player performance is important because it can provide valuable insights to team coaches for optimizing team strategies in professional sports. Our research question explores whether whether NHL players’ shooting hand (left or right) can be predicted based on their height and weight using a logistic regression model.</p>
-<p>Right-handed shooters hold a slight advantage in certain scenarios, making the ability to predict shooting hand potentially useful for teams aiming to refine player selection or training strategies. If our research question is correct, this analysis would create a reproducible way of determining a player’s shooting hand based on their physical factors. This is important because it would allow managers and coaches to scout for talent who are right handed as this would give their team an additional edge during games.</p>
+<p>In the NHL, a player’s shooting hand is likely the most important aspect of their game as it decides how they play the game. Understanding the relationship between physical attributes and player performance is important because it can provide valuable insights to team coaches for optimizing team strategies in professional sports. Our research question explores whether NHL players’ shooting hand (left or right) can be predicted based on their height and weight using a logistic regression model.</p>
+<p>Right-handed shooters hold a slight advantage in certain scenarios, making the ability to predict shooting hand potentially useful for teams aiming to refine player selection or training strategies. If our research question is correct, this analysis would create a reproducible way of determining a player’s shooting hand based on their physical factors. This is important because it would allow managers and coaches to scout for talent who are right-handed as this would give their team an additional edge during games.</p>
 <p>This analysis includes data acquisition, preprocessing, model creation, and training, followed by an evaluation of results. By examining the patterns linking height, weight, and shooting hand preference, this report aims to provide actionable insights for NHL teams and lay groundwork for future research.</p>
 </section>
 <section id="methods" class="level1">
@@ -136,16 +137,21 @@ div.csl-indent {
 <p>The data set for this shot predictor project is of National Hockey League (NHL) roster information created by the Data Science Learning Community <span class="citation" data-cites="tidytuesday">(<a href="#ref-tidytuesday" role="doc-biblioref">Community 2024</a>)</span> for the Tidy Tuesday project repository. The data here was created using the NHL’s API and loaded on to the Tidy Tuesday repository <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2024/2024-01-09/nhl_rosters.csv">here</a>. Each row in the data set contains information about all hockey players on every team from the 1917-1918 season to the 2023-2024 season. The rows include information such as name, birth date, and body dimensions.</p>
 <p>The primary columns used in our analysis, height and weight, are measured in centimeters for height and kilograms for weight. We use these columns within our model to predict a player’s shooting hand.</p>
 </section>
+<section id="assumptions-and-limitations" class="level2">
+<h2 class="anchored" data-anchor-id="assumptions-and-limitations">Assumptions and Limitations</h2>
+<p>For this analysis, we are assuming that a player’s height and weight influence their shooting hand. This is more likely to be based on dominant hand as well as cultural and environmental factors that are not easily quantifiable. We are also assuming that the data set used is a complete representation of all NHL players from 1917 to 2023. If it were missing certain players, teams or years, it could negatively impact our analysis. We assume that the data recording and collection methods remained constant across all years, however this may not be the case. Technological advances would mean that these methods have improved over the years and therefore newer data may be more accurate than older data.</p>
+<p>One limitation of our analysis is that we are only using height and weight as our explanatory variables. In reality, there may be other variables that come into play, which are not captured in our model. Additionally, we do not perform hyperparameter optimization and assume that the default hyperparameters are best suited for our model. This is most likely not the case and in future iterations, hyperparameter optimization should be added.</p>
+</section>
 <section id="analysis" class="level2">
 <h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
-<p>A logistic regression classifier was used to create a model which will predict whether a hockey player shoots left or right based on their height and weight. A logistic regression model was used because we are predicting a cateogorical variable (shooting hand as left or right). As the team is only interested in those two specific columns for predicting shooting side, all other columns were dropped. The test set was created using 30% of the records from the initial data set, leaving 70% of records for model training. For this analysis, the class weight parameter was set to balanced to ensure that the classes are equal and to avoid class imbalance. Data cleanup was done to remove duplicate records and null values and preprocessing was done on the height and weight input features to standardize them. To perform the analysis, the Python programming language <span class="citation" data-cites="Python">(<a href="#ref-Python" role="doc-biblioref">Van Rossum and Drake 2009</a>)</span> was used along with the following packages: Pandas <span class="citation" data-cites="mckinney-proc-scipy-2010">(<a href="#ref-mckinney-proc-scipy-2010" role="doc-biblioref">McKinney 2010</a>)</span>, Altair <span class="citation" data-cites="vanderplas2018altair">(<a href="#ref-vanderplas2018altair" role="doc-biblioref">VanderPlas et al. 2018</a>)</span>, and scikit-learn <span class="citation" data-cites="scikit-learn">(<a href="#ref-scikit-learn" role="doc-biblioref">Pedregosa et al. 2011</a>)</span>.</p>
+<p>A logistic regression classifier was used to create a model which will predict whether a hockey player shoots left or right based on their height and weight. A logistic regression model was used because we are predicting a categorical variable (shooting hand as left or right). As the team is only interested in those two specific columns for predicting shooting side, all other columns were dropped. The test set was created using 30% of the records from the initial data set, leaving 70% of records for model training. For this analysis, the class weight parameter was set to balanced to ensure that the classes are equal and to avoid class imbalance. Data cleanup was done to remove duplicate records and null values and preprocessing was done on the height and weight input features to standardize them. To perform the analysis, the Python programming language <span class="citation" data-cites="Python">(<a href="#ref-Python" role="doc-biblioref">Van Rossum and Drake 2009</a>)</span> was used along with the following packages: Pandas <span class="citation" data-cites="mckinney-proc-scipy-2010">(<a href="#ref-mckinney-proc-scipy-2010" role="doc-biblioref">McKinney 2010</a>)</span>, Altair <span class="citation" data-cites="VanderPlas2018">(<a href="#ref-VanderPlas2018" role="doc-biblioref">VanderPlas et al. 2018</a>)</span>, and scikit-learn <span class="citation" data-cites="scikit-learn">(<a href="#ref-scikit-learn" role="doc-biblioref">Pedregosa et al. 2011</a>)</span>.</p>
 </section>
 </section>
 <section id="results-and-discussion" class="level1">
 <h1>Results and Discussion</h1>
 <section id="looking-at-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="looking-at-the-data">Looking at the data</h2>
-<p>To start, we performed an exploratory data analysis on the training data to see if there was anything that stood out in the data, such as large class imbalances or unnexpected distributions. From <a href="#tbl-train_info" class="quarto-xref">Table&nbsp;1</a>, we can see that there is no missing data in our training set and we have a relatively large set of data to work from, specifically 38200 records. A large training set is important to ensure that our model does not overfit on the data. It is also important that missing data is minimalized otherwise the model could be using undesired information to make its prediction.</p>
+<p>To start, we performed an exploratory data analysis on the training data to see if there was anything that stood out in the data, such as large class imbalances or unexpected distributions. From <a href="#tbl-train_info" class="quarto-xref">Table&nbsp;1</a>, we can see that there is no missing data in our training set and we have a relatively large set of data to work from, specifically 38200 records. While having a large training set does not guarantee that our model will not overfit, it helps to reduce the consequences of overfitting by providing more generalizable data. It is also important that missing data is minimalized otherwise the model could be using undesired information to make its prediction.</p>
 <div class="cell" data-execution_count="3">
 <div id="tbl-train_info" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="3">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -153,7 +159,7 @@ div.csl-indent {
 Table&nbsp;1: Missing record counts for training data
 </figcaption>
 <div aria-describedby="tbl-train_info-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="16">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="9">
 <table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
@@ -251,8 +257,8 @@ Pedregosa, F., G. Varoquaux, A. Gramfort, V. Michel, B. Thirion, O. Grisel, M. B
 <div id="ref-Python" class="csl-entry" role="listitem">
 Van Rossum, Guido, and Fred L. Drake. 2009. <em>Python 3 Reference Manual</em>. Scotts Valley, CA: CreateSpace.
 </div>
-<div id="ref-vanderplas2018altair" class="csl-entry" role="listitem">
-VanderPlas, Jacob, Brian Granger, Jeffrey Heer, Dominik Moritz, Kanit Wongsuphasawat, Arvind Satyanarayan, Eitan Lees, Ilia Timofeev, Ben Welsh, and Scott Sievert. 2018. <span>“Altair: Interactive Statistical Visualizations for Python.”</span> <em>Journal of Open Source Software</em> 3 (32): 1057.
+<div id="ref-VanderPlas2018" class="csl-entry" role="listitem">
+VanderPlas, Jacob, Brian Granger, Jeffrey Heer, Dominik Moritz, Kanit Wongsuphasawat, Arvind Satyanarayan, Eitan Lees, Ilia Timofeev, Ben Welsh, and Scott Sievert. 2018. <span>“Altair: Interactive Statistical Visualizations for Python.”</span> <em>Journal of Open Source Software</em> 3 (32): 1057. <a href="https://doi.org/10.21105/joss.01057">https://doi.org/10.21105/joss.01057</a>.
 </div>
 </div></section></div></main>
 <!-- /main column -->

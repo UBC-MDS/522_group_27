@@ -109,6 +109,12 @@ where you launched the container, and then type `docker compose rm`
 
 5. Send a pull request to merge the changes into the `main` branch. 
 
+### Testing
+
+## Running tests
+
+To run the developer function tests, ensure you are in the project root directory and run the `pytest` command in terminal.
+
 ## License
 
 The NHL player Shooting Hand Predictor roject report is licensed under the

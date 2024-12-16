@@ -12,6 +12,7 @@ python scripts/eda.py \
     --processed-training-data=data/processed/roster_train.csv \
     --tables-to=results/tables \
     --plot-to=results/figures
+    ""
 '''
 
 # import libraries/packages
@@ -24,12 +25,14 @@ import pandas as pd
 @click.option('--processed-training-data', type=str, help="Path to processed training data")
 @click.option('--tables-to', type=str, help="Path to directory where the table will be written to")
 @click.option('--plot-to', type=str, help="Path to directory where the plot will be written to")
+
+
 def main(processed_training_data, tables_to, plot_to):
     '''Plots the densities of each feature in the processed training data
         by class and displays them as a grid of plots. Also saves the plot.'''
 
     # read in training data
-    train_df = pd.read_csv("data/processed/roster_train.csv")
+    train_df = pd.read_csv(processed_training_data)
 
     # Create processed data folder if it doesn't exist
     os.makedirs(plot_to, exist_ok=True)

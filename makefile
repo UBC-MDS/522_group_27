@@ -29,7 +29,8 @@ results/figures/combined_chart.png results/figures/confusion_matrix.png results/
 	python scripts/eda.py \
 		--processed-training-data=data/processed/roster_train.csv \
 		--tables-to=results/tables \
-		--plot-to=results/figures
+		--plot-to=results/figures \
+
 
 results/figures/confusion_matrix.png results/tables/test_scores.csv results/models/shooter_pipeline.pickle: scripts/shooting_hand_classifier.py results/figures/combined_chart.png results/figures/confusion_matrix.png results/tables/df_describe.csv results/tables/df_head.csv results/tables/df_info.csv
 	python scripts/shooting_hand_classifier.py \

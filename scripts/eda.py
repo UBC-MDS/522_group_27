@@ -53,35 +53,59 @@ def main(processed_training_data, tables_to, plot_to):
     head = train_df.head()
     head.to_csv(os.path.join(tables_to, 'df_head.csv'))
 
+    # Code for Chart Begins
+    # =============================
+    # Weight Chart with Title
+    weight_title = alt.Chart({'values': [{}]}).mark_text(
+        align='center',
+        fontSize=14,
+        fontWeight='bold',
+        text='Distribution of Player Weights by Shooting Hand'
+    ).properties(width=400, height=30)
+    
     weight_chart = alt.Chart(train_df).mark_bar().encode(
         alt.X("weight_in_kilograms:Q", title="Weight (kg)").bin(),
         alt.Y("count()", title="Number of Players"),
-        alt.Color("shoots_left", title="Shoots Left")
-        ).properties(
-            height=300,
-            width=200,
-            title="Distribution of Player Weights by Shooting Hand"
-        ).facet(
-            alt.Facet("shoots_left:N", title="Shoots Left or Not")
-            )
-
-    # Height distribution bar chart
+        alt.Color("shoots_left", title="Shoots Left or NOT")
+    ).properties(
+        height=300,
+        width=200
+    ).facet(
+        alt.Facet("shoots_left:N", title="Shoots Left or Right")
+    )
+    
+    # Height Chart with Title
+    height_title = alt.Chart({'values': [{}]}).mark_text(
+        align='center',
+        fontSize=14,
+        fontWeight='bold',
+        text='Distribution of Player Heights by Shooting Hand'
+    ).properties(width=400, height=30)
+    
     height_chart = alt.Chart(train_df).mark_bar().encode(
         alt.X("height_in_centimeters:Q", title="Height (cm)").bin(),
         alt.Y("count()", title="Number of Players"),
-        alt.Color("shoots_left", title="Shoots Left")
-        ).properties(
-            height=300,
-            width=200,
-            title="Distribution of Player Heights by Shooting Hand"
-        ).facet(
-            alt.Facet("shoots_left:N", title="Shoots Left or Not")
-        )
-
-    combined_chart = alt.vconcat(weight_chart, height_chart).properties(
-    title="Distribution of Player Weights and Heights by Shooting Hand"
+        alt.Color("shoots_left", title="Shoots Left or NOT")
+    ).properties(
+        height=300,
+        width=200
+    ).facet(
+        alt.Facet("shoots_left:N", title="Shoots Left or NOT")
     )
+    
+    # Combine Titles and Charts
+    combined_chart = alt.vconcat(
+        weight_title,
+        weight_chart,
+        height_title,
+        height_chart
+    )
+    
     combined_chart.save(os.path.join(plot_to, "combined_chart.png"))
+    # =============================
+    # Code for Chart Ends
+
+    
 
 # Call main function
 if __name__ == '__main__':

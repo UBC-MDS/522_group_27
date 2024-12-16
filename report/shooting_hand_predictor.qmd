@@ -1,31 +1,22 @@
 ---
 title: NHL Player Shooting Hand Predictor
-author: 'Michael Gelfand, Jay Mangat, Dominic Lam'
-date: 2024/12/06
-jupyter:
-  jupytext:
-    text_representation:
-      extension: .qmd
-      format_name: quarto
-      format_version: '1.0'
-      jupytext_version: 1.16.4
-  kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
-format:
-  html:
-    toc: true
-    toc-depth: 2
-  pdf:
-    toc: true
-    toc-depth: 2
+author: "Michael Gelfand, Jay Mangat, Dominic Lam"
+date: "2024/12/06"
+jupyter: python3
+format: 
+    html:
+        toc: true
+        toc-depth: 2
+    pdf:
+        toc: true
+        toc-depth: 2
 bibliography: references.bib
 execute:
   echo: false
   warning: false
 editor: source
 ---
+
 
 ```{python}
 import pandas as pd
@@ -41,6 +32,10 @@ info_df.rename(columns={'non-nulls':'Non-null count', 'nulls':'Null count'}, inp
 info_df.drop(['type','Unnamed: 0'], axis=1, inplace=True)
 info_df.index.names = ['Column']
 info_df_count = info_df['Non-null count'].values[0]
+
+train_df = pd.read_csv("../data/processed/roster_train.csv")
+num_left_handed_shooters = train_df["shoots_left"].value_counts().loc[True]
+num_right_handed_shooters = train_df["shoots_left"].value_counts().loc[False]
 ```
 
 # Summary
@@ -74,7 +69,7 @@ A logistic regression classifier was used to create a model which will predict w
 # Results and Discussion
 
 ## Looking at the data
-To start, we performed an exploratory data analysis on the training data to see if there was anything that stood out in the data, such as large class imbalances or unexpected distributions. From @tbl-train_info, we can see that there is no missing data in our training set and we have a relatively large set of data to work from, specifically `{python} info_df_count` records. While having a large training set does not guarantee that our model will not overfit, it helps to reduce the consequences of overfitting by providing more generalizable data. It is also important that missing data is minimalized otherwise the model could be using undesired information to make its prediction.
+To start, we performed an exploratory data analysis on the training data to see if there was anything that stood out in the data, such as large class imbalances or unexpected distributions. From @tbl-train_info, we can see that there is no missing data in our training set and we have a relatively large set of data to work from, specifically `{python} info_df_count` records. Notably, we observed a class imbalance in the distribution of shooting hand: `{python} num_left_handed_shooters` players shoot left, while `{python} num_right_handed_shooters` players shoot right. While having a large training set does not guarantee that our model will not overfit, it helps to reduce the consequences of overfitting by providing more generalizable data. It is also important that missing data is minimalized otherwise the model could be using undesired information to make its prediction.
 
 ```{python}
 #| label: tbl-train_info

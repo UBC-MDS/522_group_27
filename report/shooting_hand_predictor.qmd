@@ -1,15 +1,25 @@
 ---
 title: NHL Player Shooting Hand Predictor
-author: "Michael Gelfand, Jay Mangat, Dominic Lam"
-date: "2024/12/06"
-jupyter: python3
-format: 
-    html:
-        toc: true
-        toc-depth: 2
-    pdf:
-        toc: true
-        toc-depth: 2
+author: 'Michael Gelfand, Jay Mangat, Dominic Lam'
+date: 2024/12/06
+jupyter:
+  jupytext:
+    text_representation:
+      extension: .qmd
+      format_name: quarto
+      format_version: '1.0'
+      jupytext_version: 1.16.4
+  kernelspec:
+    display_name: Python 3
+    language: python
+    name: python3
+format:
+  html:
+    toc: true
+    toc-depth: 2
+  pdf:
+    toc: true
+    toc-depth: 2
 bibliography: references.bib
 execute:
   echo: false
@@ -97,4 +107,3 @@ These findings suggest that physical attributes like height and weight are not s
 - Can machine learning models combining multiple physical and behavioral attributes provide better predictions?  
 
 # References
-

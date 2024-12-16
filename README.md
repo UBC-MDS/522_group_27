@@ -60,7 +60,7 @@ python scripts/download_data.py \
    --url="https://raw.githubusercontent.com/rfordatascience/tidytuesday/refs/heads/main/data/2024/2024-01-09/nhl_rosters.csv" \
    --write_to=data/raw
 
-python scripts/preprocess.py \
+python scripts/preprocess_and_validate.py \
    --raw-data=data/raw/nhl_rosters.csv \
    --data-to=data/processed \
    --preprocessor-to=results/models

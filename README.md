@@ -76,6 +76,7 @@ where you launched the container, and then type `docker compose rm`
 - `jupyterlab` (version 4.0.0 or higher)
 - `nb_conda_kernels` (version 2.3.1 or higher)
 - Python and packages listed in [`environment.yml`](environment.yml)
+- [Docker](https://www.docker.com/)
 
 ### Adding a new dependency
 
@@ -95,6 +96,16 @@ where you launched the container, and then type `docker compose rm`
 ### Running tests
 
 To run the developer function tests, run the commands above to start the docker container and open the Jupyter Lab terminal. Then, ensure you are in the project root directory and run the `pytest` command in terminal.
+
+## Support
+
+If you have any questions, issues, or feedback regarding this project, feel free to reach out to us:
+
+- **GitHub Issues**: For bug reports, feature requests, or general inquiries, please open an issue in this repository [here](https://github.com/UBC-MDS/522_group_27/issues).
+- **Email**: You can email the project team at [thlam0519@gmail.com](mailto:thlam0519@gmail.com).
+- **Discussions**: Join our GitHub Discussions [here](https://github.com/UBC-MDS/522_group_27/discussions) to engage with the community and share ideas.
+
+We are here to help and value your contributions!
 
 ## License
 

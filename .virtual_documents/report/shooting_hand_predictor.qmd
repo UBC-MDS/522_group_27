@@ -1,0 +1,27 @@
+
+
+
+import pandas as pd
+from IPython.display import Markdown, display
+from tabulate import tabulate
+
+
+test_scores_df = pd.read_csv("../results/tables/test_scores.csv").round(2)
+accuracy_score = test_scores_df['accuracy'].values[0]
+info_df = pd.read_csv("../results/tables/df_info.csv", index_col='name')
+info_df.rename(columns={'non-nulls':'Non-null count', 'nulls':'Null count'}, inplace=True)
+info_df.drop(['type','Unnamed: 0'], axis=1, inplace=True)
+info_df.index.names = ['Column']
+info_df_count = info_df['Non-null count'].values[0]
+
+
+
+
+
+#| label: tbl-train_info
+#| tbl-cap: Missing record counts for training data
+
+Markdown(info_df.to_markdown())
+
+
+

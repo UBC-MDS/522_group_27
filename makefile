@@ -25,13 +25,14 @@ data/processed/roster_train.csv data/processed/roster_test.csv results/models/ro
     --data-to=data/processed \
     --preprocessor-to=results/models
 
-results/figures/combined_chart.png results/figures/confusion_matrix.png results/tables/df_describe.csv results/tables/df_head.csv results/tables/df_info.csv: scripts/eda.py data/processed/roster_train.csv data/processed/roster_test.csv results/models/roster_preprocessor.pickle
+results/figures/player_height_weight_distribution.png results/figures/confusion_matrix.png results/tables/df_describe.csv results/tables/df_head.csv results/tables/df_info.csv: scripts/eda.py data/processed/roster_train.csv data/processed/roster_test.csv results/models/roster_preprocessor.pickle
 	python scripts/eda.py \
 		--processed-training-data=data/processed/roster_train.csv \
 		--tables-to=results/tables \
-		--plot-to=results/figures
+		--plot-to=results/figures \
 
-results/figures/confusion_matrix.png results/tables/test_scores.csv results/models/shooter_pipeline.pickle: scripts/shooting_hand_classifier.py results/figures/combined_chart.png results/figures/confusion_matrix.png results/tables/df_describe.csv results/tables/df_head.csv results/tables/df_info.csv
+
+results/figures/confusion_matrix.png results/tables/test_scores.csv results/models/shooter_pipeline.pickle: scripts/shooting_hand_classifier.py results/figures/player_height_weight_distribution.png results/figures/confusion_matrix.png results/tables/df_describe.csv results/tables/df_head.csv results/tables/df_info.csv
 	python scripts/shooting_hand_classifier.py \
 		--training-data=data/processed/roster_train.csv \
 		--test-data=data/processed/roster_test.csv \
@@ -51,7 +52,7 @@ clean :
 		data/processed/roster_train.csv \
 		data/processed/roster_test.csv \
 		results/models/roster_preprocessor.pickle \
-		results/figures/combined_chart.png \
+		results/figures/player_height_weight_distribution.png \
 		results/figures/confusion_matrix.png \
 		results/tables/df_describe.csv \
 		results/tables/df_head.csv \

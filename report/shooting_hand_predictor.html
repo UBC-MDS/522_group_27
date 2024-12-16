@@ -151,7 +151,7 @@ div.csl-indent {
 <h1>Results and Discussion</h1>
 <section id="looking-at-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="looking-at-the-data">Looking at the data</h2>
-<p>To start, we performed an exploratory data analysis on the training data to see if there was anything that stood out in the data, such as large class imbalances or unexpected distributions. From <a href="#tbl-train_info" class="quarto-xref">Table&nbsp;1</a>, we can see that there is no missing data in our training set and we have a relatively large set of data to work from, specifically 38200 records. While having a large training set does not guarantee that our model will not overfit, it helps to reduce the consequences of overfitting by providing more generalizable data. It is also important that missing data is minimalized otherwise the model could be using undesired information to make its prediction.</p>
+<p>To start, we performed an exploratory data analysis on the training data to see if there was anything that stood out in the data, such as large class imbalances or unexpected distributions. From <a href="#tbl-train_info" class="quarto-xref">Table&nbsp;1</a>, we can see that there is no missing data in our training set and we have a relatively large set of data to work from, specifically 38200 records. Notably, we observed a class imbalance in the distribution of shooting hand: 25259 players shoot left, while 12941 players shoot right. While having a large training set does not guarantee that our model will not overfit, it helps to reduce the consequences of overfitting by providing more generalizable data. It is also important that missing data is minimalized otherwise the model could be using undesired information to make its prediction.</p>
 <div class="cell" data-execution_count="3">
 <div id="tbl-train_info" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="3">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -159,7 +159,7 @@ div.csl-indent {
 Table&nbsp;1: Missing record counts for training data
 </figcaption>
 <div aria-describedby="tbl-train_info-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="9">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="3">
 <table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
@@ -195,7 +195,7 @@ Table&nbsp;1: Missing record counts for training data
 <div id="fig-feature_distributions_by_class" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-feature_distributions_by_class-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../results/figures/combined_chart.png" class="img-fluid figure-img" style="width:98.0%">
+<img src="../results/figures/player_height_weight_distribution.png" class="img-fluid figure-img" style="width:98.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-feature_distributions_by_class-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Comparison of count distributions of input features for players that shoot left or right.

@@ -17,7 +17,7 @@ import requests
 import pandas as pd
 
 
-def read_zip(url, directory):
+def download_and_extract_csv(url, directory):
     """
     Read a csv file from the given URL and extract its contents to the specified directory.
 
@@ -57,10 +57,10 @@ def read_zip(url, directory):
 def main(url, write_to):
     """Downloads csv data from the web to a local filepath and extracts it"""
     try:
-        read_zip(url, write_to)
+        download_and_extract_csv(url, write_to)
     except:
         os.makedirs(write_to)
-        read_zip(url, write_to)
+        download_and_extract_csv(url, write_to)
 
 # Call main function
 if __name__ == '__main__':

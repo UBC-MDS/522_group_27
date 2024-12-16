@@ -1,8 +1,9 @@
 # shooting_hand_classifier.py
 # author: Dominic Lam
-# date: 2024-12-05
+# created date: 2024-12-05
+# last modified date: 2024-12-16
 
-# This script will be responsible for carrying out our
+# This script is responsible for carrying out our
 # classification as well as reporting the results. Model classification
 # is done using a logistic regression model.
 
@@ -29,9 +30,93 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
 from sklearn.metrics import ConfusionMatrixDisplay
 import warnings
+import logging
 
 # Silence warnings
 warnings.filterwarnings("ignore", category=FutureWarning, module="deepchecks")
+
+# Logging configuration
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+
+
+def load_data_and_preprocessor(training_data, test_data, preprocessor_path):
+    """Load training and test data, as well as the preprocessor object."""
+    try:
+        train_df = pd.read_csv(training_data)
+        test_df = pd.read_csv(test_data)
+        with open(preprocessor_path, "rb") as f:
+            preprocessor = pickle.load(f)
+        logging.info("Data and preprocessor loaded successfully.")
+        return train_df, test_df, preprocessor
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"File not found: {e.filename}") from e
+
+
+def check_data_quality(train_df):
+    """Perform data quality checks on the training data."""
+    # Check target distribution
+    target_counts = train_df["shoots_left"].value_counts().to_dict()
+    left_count = target_counts.get(True, 0)
+    right_count = target_counts.get(False, 0)
+
+    if left_count <= right_count:
+        logging.warning("There should be more left-handed shooters than right-handed shooters.")
+
+    # Feature-label correlation check
+    train_ds = Dataset(train_df, label="shoots_left", cat_features=[])
+    check_feat_lab_corr = FeatureLabelCorrelation().add_condition_feature_pps_less_than(0.9)
+    check_feat_lab_corr_result = check_feat_lab_corr.run(dataset=train_ds)
+
+    if not check_feat_lab_corr_result.passed_conditions():
+        raise ValueError("Feature-label correlation exceeds the maximum acceptable threshold.")
+    logging.info("Data quality checks passed successfully.")
+
+
+def fit_and_evaluate_model(X_train, y_train, X_test, y_test, preprocessor):
+    """Create a logistic regression pipeline, fit it, and evaluate on test data."""
+    logreg = make_pipeline(
+        preprocessor,
+        LogisticRegression(random_state=123, class_weight="balanced")
+    )
+    logreg_fit = logreg.fit(X_train, y_train)
+    accuracy = logreg_fit.score(X_test, y_test)
+    logging.info(f"Model trained successfully. Test accuracy: {accuracy:.4f}")
+    return logreg_fit, accuracy
+
+
+def save_outputs(logreg_fit, accuracy, results_to, pipeline_to, plot_to, X_test, y_test):
+    """Save test scores, pipeline object, and confusion matrix."""
+    # Ensure directories exist
+    os.makedirs(results_to, exist_ok=True)
+    os.makedirs(pipeline_to, exist_ok=True)
+    os.makedirs(plot_to, exist_ok=True)
+
+    # Save accuracy scores
+    test_scores = pd.DataFrame({'accuracy': [accuracy]})
+    test_scores.to_csv(os.path.join(results_to, "test_scores.csv"), index=False)
+    logging.info("Test scores saved.")
+
+    # Save the pipeline
+    with open(os.path.join(pipeline_to, "shooter_pipeline.pickle"), 'wb') as f:
+        pickle.dump(logreg_fit, f)
+    logging.info("Pipeline saved.")
+
+    # Generate and save confusion matrix
+    cm = ConfusionMatrixDisplay.from_estimator(
+        logreg_fit,
+        X_test,
+        y_test,
+        values_format="d",
+        display_labels=["Shoots Right", "Shoots Left"]
+    )
+    # Add a title to the confusion matrix
+    cm.ax_.set_title("Confusion Matrix for Shooting Hand Classification")
+    cm.ax_.set_xlabel("Predicted Class")
+    cm.ax_.set_ylabel("Actual Class")
+    
+    cm.figure_.tight_layout()
+    cm.figure_.savefig(os.path.join(plot_to, "confusion_matrix.png"), dpi=300)
+    logging.info("Confusion matrix saved.")
 
 
 @click.command()
@@ -42,83 +127,29 @@ warnings.filterwarnings("ignore", category=FutureWarning, module="deepchecks")
 @click.option('--plot-to', type=str, help="Path to directory where the plot will be written to")
 @click.option('--results-to', type=str, help="Path to directory where the scores will be written to")
 def main(training_data, test_data, preprocessor, pipeline_to, plot_to, results_to):
-    '''Fits a shooting hand classifier to the training data
-    and saves the pipeline object.'''
+    """
+    Main function to train a logistic regression model on shooting hand data.
+    """
     set_config(transform_output="pandas")
 
-    # read in data & preprocessor
-    train_df = pd.read_csv(training_data)
-    test_df = pd.read_csv(test_data)
-    preprocessor = pickle.load(open(preprocessor, "rb"))
-    
-    # No anomalous correlations between target/response variable and features/explanatory variables
-    # No anomalous correlations between features/explanatory variables
-    train_ds = Dataset(train_df, label="shoots_left", cat_features=[])
-    check_feat_lab_corr = FeatureLabelCorrelation().add_condition_feature_pps_less_than(0.9)
-    check_feat_lab_corr_result = check_feat_lab_corr.run(dataset=train_ds)
+    # Load data and preprocessor
+    train_df, test_df, preprocessor = load_data_and_preprocessor(training_data, test_data, preprocessor)
 
-    assert check_feat_lab_corr_result.passed_conditions(), "Feature-Label correlation exceeds the maximum acceptable threshold."
-    
-    # Check that target distribution follows expected values
-    # For example, there should not be more right handed than left handed shooters given that
-    # left handedness in shooting is the more common trait.
+    # Check data quality
+    check_data_quality(train_df)
 
-    target_dict = train_df["shoots_left"].value_counts().to_dict()
-    left_count = target_dict[True]
-    right_count = target_dict[False]
-
-    assert left_count > right_count, "There should be more left handed shooters than right handed shooters"    
-
-    # Create X and y data frames for train and test data
+    # Prepare data
     X_train = train_df.drop(columns=["shoots_left"])
     X_test = test_df.drop(columns=["shoots_left"])
     y_train = train_df["shoots_left"]
     y_test = test_df["shoots_left"]
 
-    # Create the logistic regression model pipeline and fit on the training data
-    logreg = make_pipeline(
-        preprocessor,
-        LogisticRegression(random_state=123, class_weight="balanced")
-    )
-    logreg_fit = logreg.fit(X_train, y_train);
+    # Fit and evaluate model
+    logreg_fit, accuracy = fit_and_evaluate_model(X_train, y_train, X_test, y_test, preprocessor)
 
-    # Score the logistic regression model on the test data
-    accuracy = logreg_fit.score(X_test, y_test)
+    # Save outputs
+    save_outputs(logreg_fit, accuracy, results_to, pipeline_to, plot_to, X_test, y_test)
 
-    # Create folders if it doesn't exist
-    os.makedirs(results_to, exist_ok=True)
-    os.makedirs(pipeline_to, exist_ok=True)
-    os.makedirs(plot_to, exist_ok=True)
-    
-    test_scores = pd.DataFrame({'accuracy': [accuracy]})
-    test_scores.to_csv(os.path.join(results_to, "test_scores.csv"), index=False)
 
-    # Write and save the pipeline
-    with open(os.path.join(pipeline_to, "shooter_pipeline.pickle"), 'wb') as f:
-        pickle.dump(logreg_fit, f)
-
-    # Display confusion matrix for model performance on test set
-    cm = ConfusionMatrixDisplay.from_estimator(
-        logreg,
-        X_test,
-        y_test,
-        values_format="d",
-    )
-
-    # Modify tick labels
-    cm.ax_.set_xticklabels(["Shoots Right", "Shoots Left"])
-    cm.ax_.set_yticklabels(["Shoots Right", "Shoots Left"])
-    
-    # Add a title and axis labels
-    cm.ax_.set_xlabel("Predicted Class")
-    cm.ax_.set_ylabel("Actual Class")
-    
-    # Display the plot
-    cm.figure_.tight_layout()
-
-    # Save the plot
-    cm.figure_.savefig(os.path.join(plot_to, "confusion_matrix.png"), dpi=300)  
-
-# Call main function
 if __name__ == '__main__':
     main()

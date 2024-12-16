@@ -1,5 +1,35 @@
 # CHANGELOG.md
 
+## Feedback Rashidikn1 (Dec 15, 2024)
+GitHub Issue associated with addressing feedback: <https://github.com/UBC-MDS/522_group_27/issues/55>
+
+### Code quality
+
+- Changed name of preprocess.py to preprocess_and_validate.py to be more descriptive.
+
+### General checks
+
+- Added Creative Commons License to LICENSE.md
+
+## Feedback mdahewlett (Dec 15, 2024)
+GitHub Issue associated with addressing feedback: <https://github.com/UBC-MDS/522_group_27/issues/56>
+
+### Functionality documentation
+
+- Added documentation to eda.py and shooting_hand_classifier.py.
+
+### Methods
+
+- Added assumptions and limitations section to methods.
+
+### Results
+
+- Updated misleading statement in the results section of our report.
+
+### References
+
+- Updated Altair reference to add DOI.
+
 ## Feedback hovhannisyannell (Dec 12, 2024) 
 ADD LINK
 

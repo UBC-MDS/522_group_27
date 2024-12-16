@@ -2,6 +2,7 @@
 
 ## Feedback Rashidikn1 (Dec 15, 2024)
 GitHub Issue associated with addressing feedback: <https://github.com/UBC-MDS/522_group_27/issues/55>
+
 Pull Request: <https://github.com/UBC-MDS/522_group_27/pull/57>
 
 ### Code quality
@@ -14,6 +15,7 @@ Pull Request: <https://github.com/UBC-MDS/522_group_27/pull/57>
 
 ## Feedback mdahewlett (Dec 15, 2024)
 GitHub Issue associated with addressing feedback: <https://github.com/UBC-MDS/522_group_27/issues/56>
+
 Pull request: <https://github.com/UBC-MDS/522_group_27/pull/58>
 
 ### Functionality documentation

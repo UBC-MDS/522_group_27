@@ -3,6 +3,8 @@
 ## Feedback Rashidikn1 (Dec 15, 2024)
 GitHub Issue associated with addressing feedback: <https://github.com/UBC-MDS/522_group_27/issues/55>
 
+Pull Request: <https://github.com/UBC-MDS/522_group_27/pull/57>
+
 ### Code quality
 
 - Changed name of preprocess.py to preprocess_and_validate.py to be more descriptive.
@@ -13,6 +15,8 @@ GitHub Issue associated with addressing feedback: <https://github.com/UBC-MDS/52
 
 ## Feedback mdahewlett (Dec 15, 2024)
 GitHub Issue associated with addressing feedback: <https://github.com/UBC-MDS/522_group_27/issues/56>
+
+Pull request: <https://github.com/UBC-MDS/522_group_27/pull/58>
 
 ### Functionality documentation
 
@@ -31,7 +35,7 @@ GitHub Issue associated with addressing feedback: <https://github.com/UBC-MDS/52
 - Updated Altair reference to add DOI.
 
 ## Feedback hovhannisyannell (Dec 12, 2024) 
-ADD LINK
+Pull request: <https://github.com/UBC-MDS/522_group_27/pull/44>
 
 ### Documentation
 

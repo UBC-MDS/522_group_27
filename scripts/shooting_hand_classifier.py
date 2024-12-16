@@ -1,3 +1,12 @@
+# shooting_hand_classifier.py
+# author: Dominic Lam
+# date: 2024-12-05
+
+# This script will be responsible for carrying out our
+# classification as well as reporting the results. Model classification
+# is done using a logistic regression model.
+
+# Usage:
 '''
 python scripts/shooting_hand_classifier.py \
     --training-data=data/processed/roster_train.csv \
@@ -8,6 +17,7 @@ python scripts/shooting_hand_classifier.py \
     --results-to=results/tables
 '''
 
+# Imports
 import click
 import pandas as pd
 import pickle
@@ -20,7 +30,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.metrics import ConfusionMatrixDisplay
 import warnings
 
-
+# Silence warnings
 warnings.filterwarnings("ignore", category=FutureWarning, module="deepchecks")
 
 
@@ -109,6 +119,6 @@ def main(training_data, test_data, preprocessor, pipeline_to, plot_to, results_t
     # Save the plot
     cm.figure_.savefig(os.path.join(plot_to, "confusion_matrix.png"), dpi=300)  
 
-
+# Call main function
 if __name__ == '__main__':
     main()

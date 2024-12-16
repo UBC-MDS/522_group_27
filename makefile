@@ -19,8 +19,8 @@ data/raw/nhl_rosters.csv : scripts/download_data.py
   --url="https://raw.githubusercontent.com/rfordatascience/tidytuesday/refs/heads/main/data/2024/2024-01-09/nhl_rosters.csv" \
   --write_to=data/raw
 
-data/processed/roster_train.csv data/processed/roster_test.csv results/models/roster_preprocessor.pickle: scripts/preprocess.py data/raw/nhl_rosters.csv
-	python scripts/preprocess.py \
+data/processed/roster_train.csv data/processed/roster_test.csv results/models/roster_preprocessor.pickle: scripts/preprocess_and_validate.py data/raw/nhl_rosters.csv
+	python scripts/preprocess_and_validate.py \
     --raw-data=data/raw/nhl_rosters.csv \
     --data-to=data/processed \
     --preprocessor-to=results/models

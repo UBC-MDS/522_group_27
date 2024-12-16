@@ -2,7 +2,9 @@
 # author: Jay Mangat
 # date: december 5, 2024
 
-# documentation comments
+# This script will will perform exploratory data analysis on the
+# cleaned up training data. It will create tables and figures
+# associated with this EDA process.
 
 # Usage
 '''
@@ -18,7 +20,6 @@ import os
 import altair as alt
 import pandas as pd
 
-# parse/define command line arguments here
 @click.command()
 @click.option('--processed-training-data', type=str, help="Path to processed training data")
 @click.option('--tables-to', type=str, help="Path to directory where the table will be written to")
@@ -75,6 +76,6 @@ def main(processed_training_data, tables_to, plot_to):
     combined_chart = alt.vconcat(weight_chart, height_chart)
     combined_chart.save(os.path.join(plot_to, "combined_chart.png"))
 
-
+# Call main function
 if __name__ == '__main__':
     main()

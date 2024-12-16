@@ -63,7 +63,7 @@ def test_fit_and_evaluate_model_invalid_input_type(sample_data, mock_preprocesso
     invalid_X = "invalid"
     invalid_y = "invalid"
 
-    with pytest.raises(ValueError, match=".*Expected input to be a DataFrame or array.*"):
+    with pytest.raises(TypeError, match="X_train must be a pandas DataFrame."):
         fit_and_evaluate_model(invalid_X, invalid_y, invalid_X, invalid_y, mock_preprocessor)
 
 
@@ -75,7 +75,7 @@ def test_fit_and_evaluate_model_empty_data(mock_preprocessor):
     X_test = pd.DataFrame()
     y_test = pd.Series(dtype=bool)
 
-    with pytest.raises(ValueError, match=".*Training data cannot be empty.*"):
+    with pytest.raises(ValueError, match="X_train and y_train cannot be empty."):
         fit_and_evaluate_model(X_train, y_train, X_test, y_test, mock_preprocessor)
 
 
@@ -89,5 +89,5 @@ def test_fit_and_evaluate_model_no_features(sample_data, mock_preprocessor):
     X_test = test_df.drop(columns=["feature1", "feature2"])
     y_test = test_df["shoots_left"]
 
-    with pytest.raises(ValueError, match=".*Features cannot be empty.*"):
+    with pytest.raises(ValueError, match="The number of features in X_train and X_test must match."):
         fit_and_evaluate_model(X_train, y_train, X_test, y_test, mock_preprocessor)

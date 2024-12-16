@@ -76,6 +76,7 @@ where you launched the container, and then type `docker compose rm`
 - `jupyterlab` (version 4.0.0 or higher)
 - `nb_conda_kernels` (version 2.3.1 or higher)
 - Python and packages listed in [`environment.yml`](environment.yml)
+- [Docker](https://www.docker.com/)
 
 ### Adding a new dependency
 

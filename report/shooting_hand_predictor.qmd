@@ -64,7 +64,7 @@ A logistic regression classifier was used to create a model which will predict w
 # Results and Discussion
 
 ## Looking at the data
-To start, we performed an exploratory data analysis on the training data to see if there was anything that stood out in the data, such as large class imbalances or unexpected distributions. From @tbl-train_info, we can see that there is no missing data in our training set and we have a relatively large set of data to work from, specifically `{python} info_df_count` records. A large training set is important to ensure that our model does not overfit on the data. It is also important that missing data is minimalized otherwise the model could be using undesired information to make its prediction.
+To start, we performed an exploratory data analysis on the training data to see if there was anything that stood out in the data, such as large class imbalances or unexpected distributions. From @tbl-train_info, we can see that there is no missing data in our training set and we have a relatively large set of data to work from, specifically `{python} info_df_count` records. While having a large training set does not guarantee that our model will not overfit, it helps to reduce the consequences of overfitting by providing more generalizable data. It is also important that missing data is minimalized otherwise the model could be using undesired information to make its prediction.
 
 ```{python}
 #| label: tbl-train_info

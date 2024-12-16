@@ -7,19 +7,19 @@ GitHub Issue associated with addressing feedback: <https://github.com/UBC-MDS/52
 Pull Request: <https://github.com/UBC-MDS/522_group_27/pull/63>
 
 ### Documentation Improvements
-- Added **Support** section and **Docker** to **Dependencies** section into `README.md`.
+	•	Added a “Support” section and included Docker in the “Dependencies” section of README.md.
 
 ### Code Readability
-- Used a more descriptive name for figure.
-- Added titles to the chart to enhance clarity for audience.
-- Used a more descriptive name for function.
-- Usde the parameter rather than hard coding the train_df path. 
+	•	Used a more descriptive name for the figure.
+	•	Added titles to the charts to enhance clarity for the audience.
+	•	Used a more descriptive name for the function.
+	•	Used a parameter instead of hardcoding the train_df path.
 
 ### Introduction and Importance
-- Provided a more detailed explanation of why right-handed players have an advantage and how this insight could significantly benefit NHL teams in competitions.
+	•	Provided a more detailed explanation of why right-handed players have an advantage and how this insight could significantly benefit NHL teams in competitions.
 
 ### Data Presentation
--  Includde specific numbers about left vs. right-handed players in the "looking at the data" section
+	•	Included specific numbers about left- vs. right-handed players in the “Looking at the Data” section.
 
 ## Feedback Rashidikn1 (Dec 15, 2024)
 GitHub Issue associated with addressing feedback: <https://github.com/UBC-MDS/522_group_27/issues/55>

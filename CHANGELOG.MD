@@ -4,7 +4,7 @@
 
 GitHub Issue associated with addressing feedback: <https://github.com/UBC-MDS/522_group_27/issues/62>
 
-Pull Request: pending
+Pull Request: <https://github.com/UBC-MDS/522_group_27/pull/63>
 
 ### Documentation Improvements
 - Added **Support** section and **Docker** to **Dependencies** section into `README.md`.

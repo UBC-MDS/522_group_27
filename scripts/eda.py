@@ -20,6 +20,9 @@ import click
 import os
 import altair as alt
 import pandas as pd
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from src.check_eda import check_eda
 
 @click.command()
 @click.option('--processed-training-data', type=str, help="Path to processed training data")
@@ -31,27 +34,12 @@ def main(processed_training_data, tables_to, plot_to):
     '''Plots the densities of each feature in the processed training data
         by class and displays them as a grid of plots. Also saves the plot.'''
 
-    # read in training data
-    train_df = pd.read_csv(processed_training_data)
-
     # Create processed data folder if it doesn't exist
     os.makedirs(plot_to, exist_ok=True)
     os.makedirs(tables_to, exist_ok=True)
-
-    # Create info lookalike dataframe
-    info = pd.DataFrame({
-        "name": train_df.columns,
-        "non-nulls": len(train_df)-train_df.isnull().sum().values,
-        "nulls": train_df.isnull().sum().values,
-        "type": train_df.dtypes.values
-    })
-    info.to_csv(os.path.join(tables_to, 'df_info.csv'))
-
-    describe = train_df.describe()
-    describe.to_csv(os.path.join(tables_to, 'df_describe.csv'))
-
-    head = train_df.head()
-    head.to_csv(os.path.join(tables_to, 'df_head.csv'))
+    
+    train_df = pd.read_csv(processed_training_data)
+    train_df = check_eda(train_df, tables_to)
 
     # Code for Chart Begins
     # =============================

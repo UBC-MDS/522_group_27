@@ -23,6 +23,7 @@ import click
 import pandas as pd
 import pickle
 import os
+import sys
 from deepchecks.tabular.checks import FeatureLabelCorrelation
 from deepchecks.tabular import Dataset
 from sklearn import set_config
@@ -31,6 +32,8 @@ from sklearn.pipeline import make_pipeline
 from sklearn.metrics import ConfusionMatrixDisplay
 import warnings
 import logging
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from src.fit_and_evaluate_model import fit_and_evaluate_model
 
 # Silence warnings
 warnings.filterwarnings("ignore", category=FutureWarning, module="deepchecks")
@@ -70,18 +73,6 @@ def check_data_quality(train_df):
     if not check_feat_lab_corr_result.passed_conditions():
         raise ValueError("Feature-label correlation exceeds the maximum acceptable threshold.")
     logging.info("Data quality checks passed successfully.")
-
-
-def fit_and_evaluate_model(X_train, y_train, X_test, y_test, preprocessor):
-    """Create a logistic regression pipeline, fit it, and evaluate on test data."""
-    logreg = make_pipeline(
-        preprocessor,
-        LogisticRegression(random_state=123, class_weight="balanced")
-    )
-    logreg_fit = logreg.fit(X_train, y_train)
-    accuracy = logreg_fit.score(X_test, y_test)
-    logging.info(f"Model trained successfully. Test accuracy: {accuracy:.4f}")
-    return logreg_fit, accuracy
 
 
 def save_outputs(logreg_fit, accuracy, results_to, pipeline_to, plot_to, X_test, y_test):
